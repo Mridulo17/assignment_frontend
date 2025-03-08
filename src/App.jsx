@@ -23,7 +23,7 @@ function App() {
             .then((response) => setHotels(response.data))
             .catch(() => {
                 console.error("Error fetching hotels");
-                window.location.href = "/error";
+                navigate = "/error";
             });
     }, []);
 

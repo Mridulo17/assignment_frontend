@@ -1,0 +1,156 @@
+body {
+    background-image: url('/images/bg-img.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100vw; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.877);
+    z-index: 1;
+}
+
+#root {
+    /* position: relative; */
+    z-index: 2;
+    width: 100%;
+    /* margin-top: -128px !important; */
+}
+.navbar {
+    width: 100vw; 
+    background:rgba(0,0,0,.7) !important;
+    backdrop-filter: blur(5px) !important;
+    color:#fff !important;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: fixed !important; 
+    top: 0px;
+    left: 0;
+    z-index: 1000;
+}
+.navbar-brand {
+    color: #fff !important;
+}
+.nav-button{
+    color: #fff !important;
+    border: 2px solid #fff !important;
+}
+.manage-hotel-card{
+    background: #000000eb !important;
+    backdrop-filter: blur(5px) !important;
+    padding: 7px 12px;
+    margin-top: 60px;
+}
+.proparty-card{
+    background: #2c31269e !important;
+    color: #fff !important;
+}
+.hotel-name {
+    color: #fff;
+    font-family: Barlow;
+    font-size: 17px;
+    font-weight: 600;
+}
+.hotel-address{
+    color: #fff;
+    font-family: Barlow;
+    font-size: 15px;
+    font-weight: 400;
+}
+.hotel-cost{
+    color: #fff;
+    font-family: Barlow;
+    font-size: 15px;
+    font-weight: 400;
+}
+.room-rating {
+    color: #fff;
+    font-family: Barlow;
+    font-size: 15px;
+    font-weight: 400;
+}
+.proparty-card-btn-link button {
+    font-family: Barlow;
+    font-size: 14px;
+}
+.proparty-card-btn-link a{
+    font-family: Barlow;
+    font-size: 14px;
+}
+.manage-title{
+    font-family: Barlow;
+    color: #fff;
+    font-size: 23px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+.create-hotel form{
+    font-size: 15px !important;
+    font-family: Barlow !important;
+    margin-top: 8px;
+    background: #fff;
+    color: #000;
+    padding: 12px 8px;
+}
+.create-hotel{
+    background: #0a0a0af2;
+    color: #fff;
+    padding: 12px 8px;
+    width: 600px !important;
+
+}
+.proparty-card img {
+    height: 100px;
+    width: 100%;
+}
+.modal-backdrop{
+    background-color: rgba(0, 0, 0, 0.4) !important;
+    backdrop-filter: blur(15px) !important;
+}
+.loginmodal-header {
+    border: none !important;
+}
+.loginmodal-body h5 {
+    font-size: 20px;
+    font-family: Barlow;
+}
+.loginmodal-body img {
+    height: 30px;
+    width: 30px;
+}
+.google-login-btn{
+    background: 4086fa !important;
+    font-family: Barlow;
+    font-size: 15px;
+}
+.login-footer {
+    font-size: 14px;
+    font-family: Barlow;
+    margin-top: 20px;
+}
+.card-img-top img{
+    width: 100%;
+    height: 150px;
+}
+.react-share__ShareButton{
+    height: 30px !important;
+}
+.share-hotel {
+    font-size: 16px;
+    font-family: Barlow;
+    margin-top: 6px;
+}
+.error-card {
+    background: #0a0a0af2;
+    height: 200px;
+}

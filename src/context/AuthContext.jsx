@@ -7,21 +7,17 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
-
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                await api.get('/sanctum/csrf-cookie'); 
-                
-                const response = await api.get('/user', {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem("authToken")}`, 
-                        Accept: "application/json",
-                    },
-                    withCredentials: true, 
-                });
+                const token = sessionStorage.getItem('authToken');
+                if (!token) {
+                    setUser(null);
+                    setLoading(false);
+                    return;
+                }
     
-                console.log(response);
+                const response = await api.get('/user'); 
                 setUser(response.data);
             } catch (error) {
                 console.error("Fetching user failed:", error);
@@ -34,23 +30,23 @@ export const AuthProvider = ({ children }) => {
         fetchUser();
     }, []);
     
-
-
     const login = async (email, password) => {
         try {
             await api.get('/sanctum/csrf-cookie'); 
             const response = await api.post('/login', { email, password });
+    
+            const token = response.data.token;
+            sessionStorage.setItem('authToken', token);
+    
+            api.defaults.headers.Authorization = `Bearer ${token}`; 
+    
             setUser(response.data.user);
         } catch (error) {
             console.error("Login failed:", error);
         }
     };
+    
 
-    // const register = async (name, email, password,) => {
-    //     const response = await api.post('/register', { name, email, password });
-    //     console.log(response);
-    //     setUser(response.data.user);
-    // };
 
     const register = async (name, email, password) => {
         try {
@@ -62,33 +58,19 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
-
     const logout = async () => {
-    try {
-        await api.post('/logout', {}, { withCredentials: true }); 
-
+        try {
+            await api.post('/logout'); 
+    
+            sessionStorage.removeItem('authToken'); 
+            delete api.defaults.headers.Authorization; 
+    
             setUser(null); 
             navigate("/login"); 
         } catch (error) {
             console.error("Logout failed:", error);
         }
     };
-    // const logout = async () => {
-    //     try {
-    //         await api.post('/logout', {}, {
-    //             headers: {
-    //                 Authorization: `Bearer ${localStorage.getItem("token")}`, 
-    //                 Accept: "application/json",
-    //             },
-    //             withCredentials: true, 
-    //         });
-    
-    //         localStorage.removeItem("token"); 
-    //         setUser(null);
-    //     } catch (error) {
-    //         console.error("Logout failed:", error);
-    //     }
-    // };
     
 
     return (

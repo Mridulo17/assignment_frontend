@@ -18,13 +18,20 @@ const Navbar = () => {
             <div className="container-fluid">
                 <Link className="navbar-brand" to="/">Hotel App</Link>
                 <div className="d-flex me-3">
-                    <button className="nav-button btn btn-outline-primary me-2" onClick={() => navigate("/login")}>
-                        Login
-                    </button>
-                    <button className="nav-button btn btn-outline-primary" onClick={() => navigate("/register")}>
-                        Register
-                    </button>
-                   
+                    {user ? (
+                        <button className="nav-button btn btn-outline-danger" onClick={handleLogout}>
+                            Logout
+                        </button>
+                    ) : (
+                        <>
+                            <button className="nav-button btn btn-outline-primary me-2" onClick={() => navigate("/login")}>
+                                Login
+                            </button>
+                            <button className="nav-button btn btn-outline-primary" onClick={() => navigate("/register")}>
+                                Register
+                            </button>
+                        </>
+                    )}
                 </div>
             </div>
         </nav>

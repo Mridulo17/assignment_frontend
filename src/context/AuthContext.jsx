@@ -1,5 +1,7 @@
 import { createContext, useEffect, useState } from 'react';
 import api from '../api/axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const AuthContext = createContext();
 
@@ -21,6 +23,7 @@ export const AuthProvider = ({ children }) => {
                 setUser(response.data);
             } catch (error) {
                 console.error("Fetching user failed:", error);
+                toast.error("Failed to fetch user!");
                 setUser(null);
             } finally {
                 setLoading(false);
@@ -41,8 +44,11 @@ export const AuthProvider = ({ children }) => {
             api.defaults.headers.Authorization = `Bearer ${token}`; 
     
             setUser(response.data.user);
+            toast.success("Login successful!");
+
         } catch (error) {
             console.error("Login failed:", error);
+            toast.error("Invalid email or password!");
         }
     };
     
@@ -53,8 +59,10 @@ export const AuthProvider = ({ children }) => {
             await api.get('/sanctum/csrf-cookie'); 
             const response = await api.post('/register', { name, email, password });
             setUser(response.data.user);
+            toast.success("Registration successful!");
         } catch (error) {
             console.error("Registration failed:", error);
+            toast.error("Registration failed! Please try again.");
         }
     };
 
@@ -67,8 +75,12 @@ export const AuthProvider = ({ children }) => {
     
             setUser(null); 
             navigate("/login"); 
+            toast.success("Logged out successfully!");
+
         } catch (error) {
             console.error("Logout failed:", error);
+            toast.error("Logout failed! Please try again.");
+
         }
     };
     

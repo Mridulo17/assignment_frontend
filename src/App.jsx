@@ -15,17 +15,28 @@ import AuthSuccess from "./components/AuthSuccess";
 
 function App() {
     const [hotels, setHotels] = useState([]);
+    const [error, setError] = useState(false); 
+
     const location = useLocation();
     const navigate = useNavigate();
 
     useEffect(() => {
         axios.get(`${import.meta.env.VITE_API_URL}/hotels`)
-            .then((response) => setHotels(response.data))
+            .then((response) => {
+                setHotels(response.data);
+                setError(false);
+            })
             .catch(() => {
                 console.error("Error fetching hotels");
-                navigate = "/error";
+                setError(true); 
             });
-    }, []);
+    }, []); 
+
+    useEffect(() => {
+        if (error) {
+            navigate("/error");
+        }
+    }, [error]);
 
     const isAuthPage = location.pathname === "/login" || location.pathname === "/register";
 
